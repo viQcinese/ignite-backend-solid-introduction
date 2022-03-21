@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Atlas",
+    "description": "Esta é uma documentação sobre a Atlas API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "vitor.senise@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Cria um novo usuário",
+        "requestBody": {
+          "required": true,
+          "description": "Campos obrigatórios para criação de um usuário",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Vitor Senise",
+                  "email": "vitor.senise@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "24185f8b-2a35-4052-9b0e-9c6ba48065c0",
+                    "admin": false,
+                    "name": "Vitor Senise",
+                    "email": "vitor.senise@gmail.com",
+                    "created_at": "2022-03-21T18:46:46.489Z",
+                    "updated_at": "2022-03-21T18:46:46.489Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email já está sendo utilizado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Email já está sendo utilizado"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Retorna todos os usuários",
+        "parameters": [{
+          "name": "user_id",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "example": [
+                      {
+                        "id": "24185f8b-2a35-4052-9b0e-9c6ba48065c0",
+                        "admin": false,
+                        "name": "Vitor Senise",
+                        "email": "vitor.senise@gmail.com",
+                        "created_at": "2022-03-21T18:46:46.489Z",
+                        "updated_at": "2022-03-21T18:46:46.489Z"
+                      },
+                      {
+                        "id": "24185f8b-2a35-4052-9b0e-9c6ba48065c0",
+                        "admin": false,
+                        "name": "Vitor Senise",
+                        "email": "vitor.senise@gmail.com",
+                        "created_at": "2022-03-21T18:46:46.489Z",
+                        "updated_at": "2022-03-21T18:46:46.489Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário sem permissão ou usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Usuário sem permissão ou usuário não encontrado"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Retorna um usuário específico",
+        "parameters": [{
+          "name": "user_id",
+          "description": "ID do usuário",
+          "in": "path",
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "id": "24185f8b-2a35-4052-9b0e-9c6ba48065c0",
+                  "admin": false,
+                  "name": "Vitor Senise",
+                  "email": "vitor.senise@gmail.com",
+                  "created_at": "2022-03-21T18:46:46.489Z",
+                  "updated_at": "2022-03-21T18:46:46.489Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "error": "Usuário não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["users"],
+        "summary": "Retorna um usuário específico",
+        "parameters": [{
+          "name": "user_id",
+          "description": "ID do usuário",
+          "in": "path",
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "id": "24185f8b-2a35-4052-9b0e-9c6ba48065c0",
+                  "admin": false,
+                  "name": "Vitor Senise",
+                  "email": "vitor.senise@gmail.com",
+                  "created_at": "2022-03-21T18:46:46.489Z",
+                  "updated_at": "2022-03-21T18:46:46.489Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "error": "Usuário não encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
